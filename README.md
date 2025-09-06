@@ -38,15 +38,15 @@ This project allows users to **sign up, log in, and access a stylish interactive
 ```bash
 git clone https://github.com/your-username/streamlit-login-signup.git
 cd streamlit-login-signup
-
+```
 ### 2️⃣ Install dependencies
 ```bash
 pip install -r requirements.txt
-
+```
 ### 3️⃣ Run the app
 ```bash
 streamlit run LoginSignup.py
-
+```
 App will start at: http://localhost:8501
 
 ### 📦 Requirements
