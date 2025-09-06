@@ -1,93 +1,28 @@
-🚀 Streamlit Login/Signup Dashboard
+# 🔐 Streamlit Login & Signup App
 
-A modern, secure, and interactive Login/Signup system built with Streamlit
-.
-This project features:
+A simple yet **beautiful & modern authentication system** built with [Streamlit](https://streamlit.io/).  
+This project allows users to **sign up, log in, and access a stylish interactive dashboard**—all using a secure **file-based JSON database** with salted SHA-256 password hashing.  
 
-🔒 Secure Authentication (SHA-256 with salt hashing)
+---
 
-📂 Persistent User Data stored in users.json
+## ✨ Features
 
-🎨 Beautiful, animated Dashboard UI with stats, charts, and actions
+- 📝 **Signup & Login**
+  - Stores credentials securely in `users.json`
+  - Passwords are salted + hashed with SHA-256
 
-⚡ Lightweight & Beginner-Friendly — perfect for learning or extending into full apps
+- 🎨 **Modern Dashboard**
+  - Gradient welcome card with hover animations
+  - Metric cards that bounce on hover
+  - Interactive line chart (Altair)
+  - Action buttons with loaders & success messages
+  - Stylish gradient logout button
 
-✨ Features
+- ⚡ **Lightweight**
+  - No heavy DB required (runs with JSON file)
+  - Runs locally with just Streamlit & a few libraries
 
-📝 Sign Up / Login Pages with validation
+---
 
-🔑 Password hashing (no plaintext passwords)
+## 📂 Project Structure
 
-📊 Interactive Dashboard with:
-
-Animated gradient cards
-
-Quick metrics section
-
-Altair charts (live activity overview)
-
-Action buttons with loading animations
-
-🌙 Minimal, modern design with custom CSS
-
-💾 JSON-based database (easy to understand + portable)
-
-📸 Screenshots
-🔐 Login / Signup
-
-📊 Dashboard
-
-⚙️ Tech Stack
-
-Frontend / UI → Streamlit
-
-Database → JSON file (users.json)
-
-Charts → Altair
-
-Language → Python 3.11+
-
-🛠️ Installation & Setup
-1️⃣ Clone this repo
-git clone https://github.com/your-username/streamlit-login-dashboard.git
-cd streamlit-login-dashboard
-
-2️⃣ Install dependencies
-
-Create a requirements.txt with:
-
-streamlit
-altair
-numpy
-pandas
-
-
-Then install:
-
-pip install -r requirements.txt
-
-3️⃣ Run the app
-streamlit run LoginSignup.py
-
-
-The app will open in your browser → http://localhost:8501
-
-🔮 Future Improvements
-
-Switch from JSON → PostgreSQL or MongoDB
-
-Add role-based dashboards (Admin/User)
-
-Enhance charts with real data
-
-Deploy to Streamlit Cloud
- or Heroku
-
-🤝 Contributing
-
-Pull requests are welcome!
-For major changes, please open an issue first to discuss what you’d like to change.
-
-📜 License
-
-This project is MIT Licensed — free to use, share, and improve.
