@@ -28,7 +28,8 @@ This project allows users to **sign up, log in, and access a stylish interactive
 - LoginSignup.py # Main app
 - users.json # Local DB (auto-created)
 - requirements.txt # Dependencies
-
+- healthcare_dataset.csv
+- Disease Prediction.py
 
 ---
 
