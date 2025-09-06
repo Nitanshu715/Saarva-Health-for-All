@@ -25,9 +25,9 @@ This project allows users to **sign up, log in, and access a stylish interactive
 ---
 
 ## 📂 Project Structure
-├── LoginSignup.py # Main app
-├── users.json # Local DB (auto-created)
-├── requirements.txt # Dependencies
+- LoginSignup.py # Main app
+- users.json # Local DB (auto-created)
+- requirements.txt # Dependencies
 
 
 ---
