@@ -25,7 +25,7 @@ This project allows users to **sign up, log in, and access a stylish interactive
 ---
 
 ## 📂 Project Structure
-- LoginSignup.py # Main app
+- Saarva.py # Main app
 - users.json # Local DB (auto-created)
 - requirements.txt # Dependencies
 - healthcare_dataset.csv
@@ -37,8 +37,8 @@ This project allows users to **sign up, log in, and access a stylish interactive
 
 ### 1️⃣ Clone the repo
 ```bash
-git clone https://github.com/your-username/streamlit-login-signup.git
-cd streamlit-login-signup
+git clone https://github.com/your-username/streamlit-Saarva.git
+cd streamlit-Saarva
 ```
 ### 2️⃣ Install dependencies
 ```bash
@@ -46,7 +46,7 @@ pip install -r requirements.txt
 ```
 ### 3️⃣ Run the app
 ```bash
-streamlit run LoginSignup.py
+streamlit run Saarva.py
 ```
 App will start at: http://localhost:8501
 
