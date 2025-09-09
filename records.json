@@ -1,0 +1,5 @@
+{
+  "records": [
+    {"patient_id": 1, "date": "2025-09-01", "doctor": "Dr. Sharma", "prescription": "Paracetamol 500mg 3x daily"}
+  ]
+}

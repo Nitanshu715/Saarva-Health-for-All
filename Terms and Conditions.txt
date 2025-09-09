@@ -1,0 +1,76 @@
+		Terms and Conditions
+
+Welcome to GenMinds – Digital Health Record Management System. These Terms and Conditions (“Terms”) govern your use of our platform, services, and applications. By creating an account, accessing, or using GenMinds, you acknowledge that you have read, understood, and agreed to be bound by these Terms.
+
+1. Acceptance of Terms
+By registering on GenMinds, you represent that you are at least 18 years of age or have the consent of a parent/guardian.
+If you are accessing the platform on behalf of a healthcare institution, organization, or government agency, you confirm that you are authorized to agree to these Terms on their behalf.
+Continued use of the platform constitutes acceptance of these Terms and any modifications made in the future.
+
+2. Services Provided
+GenMinds offers an AI-powered system that digitizes handwritten medical prescriptions, reports, and health documents. Services include:
+Secure scanning and storage of health records.
+Real-time access for patients, healthcare workers, and government agencies.
+Multilingual support and accessibility for migrant workers.
+Insights and analytics for healthcare professionals and administrators.
+We do not guarantee uninterrupted or error-free service, and access may be restricted during maintenance or system updates.
+
+3. User Responsibilities
+When using GenMinds, you agree to:
+Provide accurate and truthful registration details.
+Maintain the confidentiality of your account credentials.
+Use the platform only for lawful and intended healthcare purposes.
+Avoid uploading malicious files, fake health records, or misleading information.
+Immediately notify us in case of unauthorized access to your account.
+Failure to comply may result in suspension or permanent termination of your account.
+
+4. Data Privacy & Security
+All health records are encrypted using industry-standard protocols (AES-256, SSL/TLS).
+Access to medical data is strictly role-based (patients, healthcare workers, administrators).
+Your data will not be shared with third parties without your explicit consent, except as required by law or regulatory authorities.
+By using our platform, you consent to the collection, processing, and storage of your data in accordance with our Privacy Policy.
+While we prioritize security, no system is completely immune to breaches. Users agree that GenMinds is not liable for damages arising from cyberattacks or data leaks beyond our reasonable control.
+
+5. Limitations of Liability
+The platform is a digital tool for record management, not a replacement for professional medical advice, diagnosis, or treatment.
+GenMinds shall not be responsible for:
+Misinterpretation of digitized health data due to illegible handwriting.
+Errors or omissions in the medical records provided by users or healthcare professionals.
+Any loss, injury, or damage resulting from reliance on the platform’s output.
+Users agree that their use of GenMinds is at their own risk.
+
+6. Intellectual Property
+All software, features, designs, trademarks, and content of GenMinds are owned by the team and protected under intellectual property laws.
+You may not copy, modify, distribute, or reverse-engineer any part of the platform without prior written consent.
+
+7. Prohibited Activities
+Users are strictly prohibited from:
+Misusing the system to upload offensive, fraudulent, or unauthorized material.
+Attempting to hack, disrupt, or compromise the security of the platform.
+Sharing personal login details or impersonating other users.
+Using the platform for any purpose outside healthcare record management.
+
+8. Updates and Modifications
+GenMinds reserves the right to update, modify, or discontinue services without prior notice.
+Terms & Conditions may be revised periodically. Continued use of the platform after updates means you accept the changes.
+
+9. Termination of Services
+We may suspend or permanently terminate your account if you:
+Breach these Terms.
+Provide false information during signup.
+Engage in activities that threaten the security or reputation of the platform.
+Termination may result in loss of access to your records, subject to applicable regulations.
+
+10. Governing Law & Dispute Resolution
+These Terms shall be governed by and construed under the laws of India.
+Any disputes arising shall be subject to the exclusive jurisdiction of the courts located in Kerala, India.
+Users agree to first attempt an informal resolution by contacting support before pursuing legal remedies.
+
+11. Disclaimer of Warranties
+GenMinds is provided “as is” without warranties of any kind, express or implied.
+We do not guarantee uninterrupted access, accuracy of digitization, or error-free results.
+Users acknowledge that technical issues, network failures, or force majeure events may temporarily disrupt services.
+
+12. Contact Information
+If you have questions or concerns about these Terms, please contact us at:
+support@genminds.in

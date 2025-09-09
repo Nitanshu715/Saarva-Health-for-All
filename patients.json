@@ -1,0 +1,5 @@
+{
+  "patients": [
+    {"id": 1, "name": "Nitanshu", "age": 20, "gender": "M"}
+  ]
+}
