@@ -1,2 +1,13 @@
 streamlit
-bcrypt
+pandas
+numpy
+scikit-learn
+joblib
+matplotlib
+seaborn
+altair
+# if DB
+sqlalchemy
+psycopg2-binary   # for PostgreSQL
+
+
