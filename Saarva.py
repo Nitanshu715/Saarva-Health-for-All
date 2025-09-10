@@ -7,6 +7,7 @@ import pandas as pd
 import base64
 from PIL import Image
 import io
+from datetime import datetime, date
 
 USERS_FILE = "users.json"
 PATIENTS_FILE = "patients.json"
@@ -302,6 +303,32 @@ def set_indian_theme():
             display: none !important;
         }}
         
+        /* Modal/Dialog styling */
+        .modal-container {{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }}
+        
+        .modal-content {{
+            background: {card_bg};
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 2px solid var(--gold);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+        }}
+        
         </style>
         """,
         unsafe_allow_html=True,
@@ -406,6 +433,204 @@ def initialize_default_data():
             ]
         }
         save_json(RECORDS_FILE, default_records)
+
+# ---------- Record Addition Functions ----------
+def show_add_record_dialog():
+    """Display the add new record dialog"""
+    st.markdown("### ➕ Add New Medical Record")
+    
+    with st.form("add_record_form", clear_on_submit=True):
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            # Basic Information
+            st.markdown("#### 📋 Basic Information")
+            record_date = st.date_input(
+                "Date",
+                value=date.today(),
+                help="Date of the medical record"
+            )
+            
+            record_type = st.selectbox(
+                "Record Type",
+                ["Consultation", "Lab Test", "Vaccination", "Surgery", "Emergency", "Follow-up", "Other"],
+                help="Type of medical record"
+            )
+            
+            patient_id = st.text_input(
+                "Patient ID",
+                value=st.session_state.get('current_user', ''),
+                help="Patient identification number"
+            )
+            
+        with col2:
+            # Medical Details
+            st.markdown("#### 🏥 Medical Details")
+            doctor_name = st.text_input(
+                "Doctor Name",
+                placeholder="e.g., Dr. Rajiv Narang",
+                help="Name of the attending doctor"
+            )
+            
+            hospital = st.text_input(
+                "Hospital/Clinic",
+                placeholder="e.g., AIIMS Delhi",
+                help="Name of the hospital or clinic"
+            )
+            
+            diagnosis = st.text_input(
+                "Diagnosis",
+                placeholder="e.g., Hypertension, Diabetes",
+                help="Medical diagnosis or condition"
+            )
+        
+        # Additional fields based on record type
+        if record_type == "Lab Test":
+            st.markdown("#### 🧪 Lab Test Details")
+            col3, col4 = st.columns(2)
+            with col3:
+                test_name = st.text_input(
+                    "Test Name",
+                    placeholder="e.g., Complete Blood Count"
+                )
+            with col4:
+                test_result = st.text_input(
+                    "Test Result",
+                    placeholder="e.g., Normal, Abnormal"
+                )
+            lab_name = st.text_input(
+                "Laboratory",
+                placeholder="e.g., AIIMS Lab"
+            )
+            
+        elif record_type == "Vaccination":
+            st.markdown("#### 💉 Vaccination Details")
+            col3, col4 = st.columns(2)
+            with col3:
+                vaccine_name = st.text_input(
+                    "Vaccine Name",
+                    placeholder="e.g., COVID-19 Booster"
+                )
+            with col4:
+                vaccination_center = st.text_input(
+                    "Vaccination Center",
+                    placeholder="e.g., AIIMS Delhi"
+                )
+            batch_number = st.text_input(
+                "Batch Number (Optional)",
+                placeholder="Vaccine batch number"
+            )
+            
+        elif record_type == "Surgery":
+            st.markdown("#### ⚕️ Surgery Details")
+            col3, col4 = st.columns(2)
+            with col3:
+                surgery_type = st.text_input(
+                    "Surgery Type",
+                    placeholder="e.g., Appendectomy"
+                )
+            with col4:
+                surgeon = st.text_input(
+                    "Surgeon",
+                    placeholder="e.g., Dr. Smith"
+                )
+            surgery_notes = st.text_area(
+                "Surgery Notes",
+                placeholder="Additional notes about the surgery"
+            )
+        
+        # Common fields for all record types
+        st.markdown("#### 📝 Additional Information")
+        col5, col6 = st.columns(2)
+        
+        with col5:
+            prescription = st.text_area(
+                "Prescription/Treatment",
+                placeholder="Medications prescribed or treatment given",
+                height=100
+            )
+            
+        with col6:
+            notes = st.text_area(
+                "Additional Notes",
+                placeholder="Any additional notes or observations",
+                height=100
+            )
+        
+        symptoms = st.text_input(
+            "Symptoms",
+            placeholder="e.g., fever, headache, cough",
+            help="Symptoms experienced by the patient"
+        )
+        
+        # Form submission buttons
+        col7, col8, col9 = st.columns([1, 1, 1])
+        
+        with col8:
+            submitted = st.form_submit_button(
+                "💾 Save Record",
+                use_container_width=True,
+                type="primary"
+            )
+        
+        with col9:
+            cancel = st.form_submit_button(
+                "❌ Cancel",
+                use_container_width=True
+            )
+    
+    # Handle form submission
+    if submitted:
+        # Validate required fields
+        if not all([record_date, record_type, patient_id]):
+            st.error("⚠️ Please fill in all required fields (Date, Record Type, Patient ID)")
+            return
+        
+        # Create new record
+        new_record = {
+            "date": record_date.strftime("%Y-%m-%d"),
+            "type": record_type,
+            "patient_id": patient_id,
+            "doctor": doctor_name,
+            "hospital": hospital,
+            "diagnosis": diagnosis,
+            "prescription": prescription,
+            "notes": notes,
+            "symptoms": symptoms
+        }
+        
+        # Add specific fields based on record type
+        if record_type == "Lab Test":
+            new_record.update({
+                "test": test_name,
+                "result": test_result,
+                "lab": lab_name
+            })
+        elif record_type == "Vaccination":
+            new_record.update({
+                "vaccine": vaccine_name,
+                "center": vaccination_center,
+                "batch_number": batch_number
+            })
+        elif record_type == "Surgery":
+            new_record.update({
+                "surgery_type": surgery_type,
+                "surgeon": surgeon,
+                "surgery_notes": surgery_notes
+            })
+        
+        # Save to records file
+        records_db = load_json(RECORDS_FILE, {"records": []})
+        records_db["records"].append(new_record)
+        save_json(RECORDS_FILE, records_db)
+        
+        st.success("✅ Medical record added successfully!")
+        st.session_state.show_add_record = False
+        st.rerun()
+    
+    if cancel:
+        st.session_state.show_add_record = False
+        st.rerun()
 
 # ---------- Sidebar Navigation ----------
 def show_sidebar():
@@ -589,12 +814,31 @@ def dashboard_home():
 def dashboard_records():
     st.markdown("<h1 style='color:#8B4789;'>📋 Medical Records</h1>", unsafe_allow_html=True)
     
+    # Initialize the show_add_record state
+    if "show_add_record" not in st.session_state:
+        st.session_state.show_add_record = False
+    
+    # Show add record dialog if requested
+    if st.session_state.show_add_record:
+        show_add_record_dialog()
+        return
+    
     # Load records
     records_db = load_json(RECORDS_FILE, {"records": []})
     
     if records_db.get("records"):
         # Display options
-        view_type = st.radio("View as:", ["Cards", "Table"], horizontal=True)
+        col1, col2, col3 = st.columns([2, 2, 1])
+        with col1:
+            view_type = st.radio("View as:", ["Cards", "Table"], horizontal=True)
+        with col2:
+            st.write("")  # Empty space
+        with col3:
+            if st.button("➕ Add New Record", use_container_width=True):
+                st.session_state.show_add_record = True
+                st.rerun()
+        
+        st.markdown("---")
         
         if view_type == "Table":
             df = pd.DataFrame(records_db["records"])
@@ -603,7 +847,8 @@ def dashboard_records():
             for record in records_db["records"]:
                 record_display = ""
                 for key, value in record.items():
-                    record_display += f"**{key.title()}:** {value}<br>"
+                    if value:  # Only show non-empty values
+                        record_display += f"**{key.title().replace('_', ' ')}:** {value}<br>"
                 
                 st.markdown(
                     f"""
@@ -614,14 +859,13 @@ def dashboard_records():
                     """,
                     unsafe_allow_html=True
                 )
-        
-        # Add new record button
-        if st.button("➕ Add New Record"):
-            st.info("Record addition form would appear here")
     else:
         st.info("📭 No medical records found. Your medical history will appear here.")
-        if st.button("➕ Add Your First Record"):
-            st.info("Record addition form would appear here")
+        col1, col2, col3 = st.columns([1, 1, 1])
+        with col2:
+            if st.button("➕ Add Your First Record", use_container_width=True):
+                st.session_state.show_add_record = True
+                st.rerun()
 
 def dashboard_contacts():
     st.markdown("<h1 style='color:#8B4789;'>👨‍⚕️ Doctor Directory</h1>", unsafe_allow_html=True)
@@ -789,6 +1033,8 @@ def logout():
     st.session_state.logged_in = False
     st.session_state.current_user = None
     st.session_state.selected_nav = "Dashboard"
+    if "show_add_record" in st.session_state:
+        del st.session_state.show_add_record
     st.success("👋 Logged out successfully!")
     st.rerun()
 
