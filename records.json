@@ -1,5 +1,41 @@
 {
   "records": [
-    {"patient_id": 1, "date": "2025-09-01", "doctor": "Dr. Sharma", "prescription": "Paracetamol 500mg 3x daily"}
-  ]
-}
+    {
+      "patient_id": 1,
+      "date": "2025-09-01",
+      "doctor": "Dr. Sharma",
+      "prescription": "Paracetamol 500mg 3x daily"
+    },
+    {
+      "date": "2025-09-11",
+      "type": "Consultation",
+      "patient_id": "vanshika munjal",
+      "doctor": "Dr. Amit",
+      "hospital": "AIIMS",
+      "diagnosis": "Fever",
+      "prescription": "Crocin",
+      "notes": "",
+      "symptoms": "Fever"
+    },
+    {
+      "date": "2025-09-11",
+      "type": "Follow-up",
+      "patient_id": "test_165",
+      "doctor": "Dr. ABC",
+      "hospital": "Max",
+      "diagnosis": "fever",
+      "prescription": "Crocin",
+      "notes": "Rest",
+      "symptoms": "Fever"
+    },
+    {
+      "date": "2025-09-11",
+      "type": "Consultation",
+      "patient_id": "abc_67",
+      "doctor": "Dr. Test",
+      "hospital": "Max",
+      "diagnosis": "Cough",
+      "prescription": "medicine",
+      "notes": "take rest",
+      "symptoms": "fever",
+      "_id": 
