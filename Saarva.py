@@ -870,7 +870,7 @@ def get_hospitals_data():
                 {
                     "name": "KIMSHEALTH Trivandrum",
                     "description": "A leading multi-specialty hospital offering advanced healthcare services.",
-                    "image": "KIMSHEALTH_Trivandrum.jpeg",
+                    "image": "KIMSHEALTH_Trivandrum.jpg",
                     "website": "https://www.kimshealth.org/"
                 },
                 {
