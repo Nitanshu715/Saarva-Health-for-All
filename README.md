@@ -1,4 +1,4 @@
-# 🔐 Streamlit Login & Signup App
+# 🔐 Streamlit Saarva App
 
 A simple yet **beautiful & modern authentication system** built with [Streamlit](https://streamlit.io/).  
 This project allows users to **sign up, log in, and access a stylish interactive dashboard**—all using a secure **file-based JSON database** with salted SHA-256 password hashing.  
