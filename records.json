@@ -1,5 +1,65 @@
 {
   "records": [
-    {"patient_id": 1, "date": "2025-09-01", "doctor": "Dr. Sharma", "prescription": "Paracetamol 500mg 3x daily"}
+    {
+      "patient_id": "1",
+      "date": "2025-09-01",
+      "doctor": "Dr. Sharma",
+      "prescription": "Paracetamol 500mg 3x daily"
+    },
+    {
+      "patient_id": "3",
+      "date": "2025-09-11",
+      "type": "Follow-up",
+      "doctor": "Dr. Nitanshu Tak",
+      "hospital": "AIIMS Jodhpur",
+      "diagnosis": "Fever",
+      "prescription": "Cheston Cold",
+      "notes": "All fine",
+      "symptoms": "Cold and headache with body warmness"
+    },
+    {
+      "patient_id": "7",
+      "date": "2025-09-11",
+      "type": "Consultation",
+      "doctor": "Dr. Garvit",
+      "hospital": "AIIMS Delhi",
+      "diagnosis": "Fever",
+      "prescription": "Paracetamol",
+      "notes": "All Fine",
+      "symptoms": "Headache, Cold and Cough"
+    },
+    {
+      "patient_id": "vanshika_munjal",
+      "date": "2025-09-11",
+      "type": "Consultation",
+      "doctor": "Dr. Amit",
+      "hospital": "AIIMS",
+      "diagnosis": "Fever",
+      "prescription": "Crocin",
+      "notes": "",
+      "symptoms": "Fever"
+    },
+    {
+      "patient_id": "test_165",
+      "date": "2025-09-11",
+      "type": "Follow-up",
+      "doctor": "Dr. ABC",
+      "hospital": "Max",
+      "diagnosis": "Fever",
+      "prescription": "Crocin",
+      "notes": "Rest",
+      "symptoms": "Fever"
+    },
+    {
+      "patient_id": "abc_67",
+      "date": "2025-09-11",
+      "type": "Consultation",
+      "doctor": "Dr. Test",
+      "hospital": "Max",
+      "diagnosis": "Cough",
+      "prescription": "Medicine",
+      "notes": "Take rest",
+      "symptoms": "Fever"
+    }
   ]
 }
