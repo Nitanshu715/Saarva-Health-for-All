@@ -10,3 +10,4 @@ altair
 sqlalchemy
 psycopg2-binary   # for PostgreSQL
 pymongo
+plotly
