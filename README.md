@@ -161,5 +161,5 @@ Licensed under **MIT (Massachusetts Institute of Technology) License** © 2024 T
 🔗 [GitHub Repository](https://github.com/Nitanshu715/Saarva-Health-for-All) | [Live Demo](https://saarva.streamlit.app/)  
 
 <div align="center">  
-🚀 Built with ❤️ by **Team GenMinds** | Making Healthcare Accessible for All  
+🚀 Built with ❤️ by *Team GenMinds* | Making Healthcare Accessible for All  
 </div>
