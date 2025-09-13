@@ -15,9 +15,11 @@ import seaborn as sns
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
-import plotly.express as px
-import plotly.graph_objects as go
 import pymongo
+
+# Set matplotlib style for better looking plots
+plt.style.use('default')
+sns.set_palette("husl")
 
 # MongoDB connection
 try:
@@ -64,6 +66,7 @@ def get_all_records_from_db():
         except:
             return []
     return []
+
 # Configuration
 USERS_FILE = "users.json"
 PATIENTS_FILE = "patients.json"
@@ -628,7 +631,7 @@ div.block-container {{
         unsafe_allow_html=True
     )
 
-# ---------- Analytics Functions ----------
+# ---------- Analytics Functions with Matplotlib ----------
 @st.cache_data
 def load_analytics_data():
     """Load and preprocess the dataset for analytics"""
@@ -705,82 +708,86 @@ def train_analytics_model(df):
         return None, None
 
 def create_analytics_visualizations(df):
-    """Create interactive visualizations using Plotly"""
+    """Create visualizations using matplotlib and seaborn"""
     try:
         if df is None or df.empty:
             return None, None, None, None
-        disease_counts = df['Medical_Condition'].value_counts().reset_index()
-        disease_counts.columns = ['Medical_Condition', 'count']
+        
+        # Set the theme for better looking plots
+        plt.style.use('seaborn-v0_8')
         
         # Chart 1: Disease Distribution
-        fig1 = px.bar(
-            disease_counts,
-            x='Medical_Condition', y='count',
-            title='Disease Distribution',
-            labels={'Medical_Condition': 'Medical Condition', 'count': 'Number of Cases'},
-            color='Medical_Condition',
-            color_discrete_sequence=px.colors.qualitative.Set3
-        )
-        fig1.update_layout(
-            title_font_size=20,
-            title_x=0.5,
-            xaxis_title_font_size=14,
-            yaxis_title_font_size=14,
-            plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)'
-        )
+        fig1, ax1 = plt.subplots(figsize=(12, 8))
+        disease_counts = df['Medical_Condition'].value_counts()
+        
+        # Create bar plot with custom colors
+        colors = ['#FF9933', '#8B4789', '#138808', '#FFD700', '#FF6B6B']
+        bars = ax1.bar(disease_counts.index, disease_counts.values, 
+                      color=colors[:len(disease_counts)])
+        
+        ax1.set_title('Disease Distribution', fontsize=16, fontweight='bold', pad=20)
+        ax1.set_xlabel('Medical Condition', fontsize=12)
+        ax1.set_ylabel('Number of Cases', fontsize=12)
+        ax1.tick_params(axis='x', rotation=45)
+        
+        # Add value labels on bars
+        for bar in bars:
+            height = bar.get_height()
+            ax1.text(bar.get_x() + bar.get_width()/2., height + 0.5,
+                    f'{int(height)}', ha='center', va='bottom')
+        
+        plt.tight_layout()
         
         # Chart 2: Age Distribution by Disease
-        fig2 = px.histogram(
-            df, x='Age', color='Medical_Condition',
-            title='Age Distribution by Disease',
-            nbins=20,
-            color_discrete_sequence=px.colors.qualitative.Set2
-        )
-        fig2.update_layout(
-            title_font_size=20,
-            title_x=0.5,
-            xaxis_title_font_size=14,
-            yaxis_title_font_size=14,
-            plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)',
-        )
+        fig2, ax2 = plt.subplots(figsize=(12, 8))
+        
+        # Create histogram with overlapping bars
+        diseases = df['Medical_Condition'].unique()
+        for i, disease in enumerate(diseases):
+            disease_data = df[df['Medical_Condition'] == disease]['Age']
+            ax2.hist(disease_data, bins=15, alpha=0.7, label=disease, 
+                    color=colors[i % len(colors)])
+        
+        ax2.set_title('Age Distribution by Disease', fontsize=16, fontweight='bold', pad=20)
+        ax2.set_xlabel('Age', fontsize=12)
+        ax2.set_ylabel('Frequency', fontsize=12)
+        ax2.legend(title='Medical Condition')
+        ax2.grid(True, alpha=0.3)
+        
+        plt.tight_layout()
         
         # Chart 3: Disease Cases by Area (if Area column exists)
         fig3 = None
         if 'Area' in df.columns:
-            area_disease = df.groupby(['Area', 'Medical_Condition']).size().reset_index(name='count')
-        fig3 = px.bar(
-        area_disease, x='Area', y='count', color='Medical_Condition',
-        title='Disease Cases by Area',
-        color_discrete_sequence=px.colors.qualitative.Pastel
-    )
-        fig3.update_layout(
-        title_font_size=20,
-        title_x=0.5,
-        xaxis_title_font_size=14,
-        yaxis_title_font_size=14,
-        plot_bgcolor='rgba(0,0,0,0)',
-        paper_bgcolor='rgba(0,0,0,0)'
-    )
+            fig3, ax3 = plt.subplots(figsize=(12, 8))
+            area_disease = df.groupby(['Area', 'Medical_Condition']).size().unstack(fill_value=0)
+            
+            area_disease.plot(kind='bar', stacked=True, ax=ax3, color=colors)
+            ax3.set_title('Disease Cases by Area', fontsize=16, fontweight='bold', pad=20)
+            ax3.set_xlabel('Area', fontsize=12)
+            ax3.set_ylabel('Number of Cases', fontsize=12)
+            ax3.tick_params(axis='x', rotation=45)
+            ax3.legend(title='Medical Condition', bbox_to_anchor=(1.05, 1), loc='upper left')
+            
+            plt.tight_layout()
 
         # Chart 4: Yearly Trends (if Admission_Year column exists)
         fig4 = None
         if 'Admission_Year' in df.columns:
-            yearly_data = df.groupby(['Admission_Year', 'Medical_Condition']).size().reset_index(name='count')
-            fig4 = px.line(
-                yearly_data, x='Admission_Year', y='count', color='Medical_Condition',
-                title='Disease Trends Over Years',
-                color_discrete_sequence=px.colors.qualitative.Dark24
-            )
-            fig4.update_layout(
-                title_font_size=20,
-                title_x=0.5,
-                xaxis_title_font_size=14,
-                yaxis_title_font_size=14,
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)'
-            )
+            fig4, ax4 = plt.subplots(figsize=(12, 8))
+            yearly_data = df.groupby(['Admission_Year', 'Medical_Condition']).size().unstack(fill_value=0)
+            
+            for i, disease in enumerate(yearly_data.columns):
+                ax4.plot(yearly_data.index, yearly_data[disease], 
+                        marker='o', linewidth=2, label=disease, color=colors[i % len(colors)])
+            
+            ax4.set_title('Disease Trends Over Years', fontsize=16, fontweight='bold', pad=20)
+            ax4.set_xlabel('Year', fontsize=12)
+            ax4.set_ylabel('Number of Cases', fontsize=12)
+            ax4.legend(title='Medical Condition')
+            ax4.grid(True, alpha=0.3)
+            
+            plt.tight_layout()
         
         return fig1, fig2, fig3, fig4
     
@@ -1283,45 +1290,38 @@ def show_add_record_dialog():
             "prescription": prescription,
             "notes": notes
         }
-        # Save to MongoDB first (if connected)
-        if add_record_to_db(new_record):
-            st.success("Medical record saved to database!")
-        else:
-            st.warning("Database unavailable, saving locally only")
-    
-        # Always save to JSON as backup
-        records_db = load_json(RECORDS_FILE, {"records": []})
-        records_db["records"].append(new_record)
-        save_json(RECORDS_FILE, records_db)
-    
-        st.success("Medical record added successfully!")
-        st.session_state.show_add_record = False
-        st.rerun()
+        
         # Add specific fields based on record type
         if record_type == "Lab Test":
             new_record.update({
-                "test_name": test_name,
-                "test_result": test_result,
-                "lab_name": lab_name,
+                "test_name": test_name if 'test_name' in locals() else "",
+                "test_result": test_result if 'test_result' in locals() else "",
+                "lab_name": lab_name if 'lab_name' in locals() else "",
                 "test_values": test_values if 'test_values' in locals() else ""
             })
         elif record_type == "Vaccination":
             new_record.update({
-                "vaccine_name": vaccine_name,
-                "vaccination_center": vaccination_center,
-                "batch_number": batch_number,
+                "vaccine_name": vaccine_name if 'vaccine_name' in locals() else "",
+                "vaccination_center": vaccination_center if 'vaccination_center' in locals() else "",
+                "batch_number": batch_number if 'batch_number' in locals() else "",
                 "next_dose": next_dose.strftime("%Y-%m-%d") if 'next_dose' in locals() and next_dose else ""
             })
         elif record_type == "Surgery":
             new_record.update({
-                "surgery_type": surgery_type,
-                "surgeon": surgeon,
+                "surgery_type": surgery_type if 'surgery_type' in locals() else "",
+                "surgeon": surgeon if 'surgeon' in locals() else "",
                 "surgery_duration": surgery_duration if 'surgery_duration' in locals() else "",
                 "anesthesia_type": anesthesia_type if 'anesthesia_type' in locals() else "",
                 "surgery_notes": surgery_notes if 'surgery_notes' in locals() else ""
             })
         
-        # Save to records file
+        # Save to MongoDB first (if connected)
+        if add_record_to_db(new_record):
+            st.success("Medical record saved to database!")
+        else:
+            st.warning("Database unavailable, saving locally only")
+        
+        # Always save to JSON as backup
         records_db = load_json(RECORDS_FILE, {"records": []})
         records_db["records"].append(new_record)
         save_json(RECORDS_FILE, records_db)
@@ -1545,7 +1545,8 @@ def dashboard_records():
     st.markdown('<div class="main-content-with-banner">', unsafe_allow_html=True)
     
     st.markdown("<h1 style='color:#8B4789;'>Medical Records</h1>", unsafe_allow_html=True)
-     # Load records from both MongoDB and JSON
+    
+    # Load records from both MongoDB and JSON
     mongo_records = get_all_records_from_db()
     json_records = load_json(RECORDS_FILE, {"records": []}).get("records", [])
     
@@ -1559,6 +1560,7 @@ def dashboard_records():
         if key not in seen:
             seen.add(key)
             unique_records.append(record)
+    
     # Initialize the show_add_record state
     if "show_add_record" not in st.session_state:
         st.session_state.show_add_record = False
@@ -1572,7 +1574,10 @@ def dashboard_records():
     # Load records
     records_db = load_json(RECORDS_FILE, {"records": []})
     
-    if records_db.get("records"):
+    if records_db.get("records") or unique_records:
+        # Use unique_records if available, otherwise fall back to records_db
+        records_to_display = unique_records if unique_records else records_db["records"]
+        
         # Display options
         col1, col2, col3 = st.columns([2, 2, 1])
         with col1:
@@ -1587,10 +1592,10 @@ def dashboard_records():
         st.markdown("---")
         
         if view_type == "Table":
-            df = pd.DataFrame(records_db["records"])
+            df = pd.DataFrame(records_to_display)
             st.dataframe(df, use_container_width=True, height=400)
         else:
-            for record in records_db["records"]:
+            for record in records_to_display:
                 record_display = ""
                 for key, value in record.items():
                     if value:  # Only show non-empty values
@@ -1685,7 +1690,7 @@ def dashboard_doctors():
     st.markdown('</div>', unsafe_allow_html=True)
 
 def dashboard_analytics():
-    """Advanced Analytics Dashboard with Disease Prediction Model"""
+    """Advanced Analytics Dashboard with Disease Prediction Model using Matplotlib"""
     st.markdown('<div class="main-content-with-banner">', unsafe_allow_html=True)
     
     st.markdown("<h1 style='color:#8B4789; text-align:center;'>Healthcare Analytics Dashboard</h1>", unsafe_allow_html=True)
@@ -1847,7 +1852,7 @@ def dashboard_analytics():
     
     st.markdown("---")
     
-    # Data Visualizations
+    # Data Visualizations with matplotlib
     st.markdown("### Data Visualizations & Insights")
     
     # Generate visualizations
@@ -1858,7 +1863,7 @@ def dashboard_analytics():
     
     with tab1:
         if fig1:
-            st.plotly_chart(fig1, use_container_width=True)
+            st.pyplot(fig1)
             
             # Insights
             most_common = df['Medical_Condition'].value_counts().iloc[0]
@@ -1880,7 +1885,7 @@ def dashboard_analytics():
     
     with tab2:
         if fig2:
-            st.plotly_chart(fig2, use_container_width=True)
+            st.pyplot(fig2)
             
             # Age-related insights
             age_stats = df.groupby('Medical_Condition')['Age'].agg(['mean', 'min', 'max']).round(1)
@@ -1898,7 +1903,7 @@ def dashboard_analytics():
     
     with tab3:
         if fig3 and 'Area' in df.columns:
-            st.plotly_chart(fig3, use_container_width=True)
+            st.pyplot(fig3)
             
             # Geographic insights
             area_stats = df.groupby('Area').agg({
@@ -1922,7 +1927,7 @@ def dashboard_analytics():
     
     with tab4:
         if fig4 and 'Admission_Year' in df.columns:
-            st.plotly_chart(fig4, use_container_width=True)
+            st.pyplot(fig4)
             
             # Temporal insights
             yearly_stats = df.groupby('Admission_Year').agg({
@@ -1964,7 +1969,6 @@ def dashboard_analytics():
         if model:
             # Calculate and display model metrics
             from sklearn.model_selection import cross_val_score
-            from sklearn.metrics import accuracy_score
             
             features = ['Admission_Year', 'Age'] if 'Admission_Year' in df.columns else ['Age']
             X = df[features]
@@ -2017,26 +2021,23 @@ def dashboard_analytics():
     
     with col2:
         if st.button("Generate Report", use_container_width=True):
+            age_stats = df.groupby('Medical_Condition')['Age'].agg(['mean', 'min', 'max']).round(1)
+            
             report_content = f"""
-            Healthcare Analytics Report
-            Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}
-            
-            Summary Statistics:
-            - Total Cases: {total_cases:,}
-            - Unique Diseases: {unique_diseases}
-            - Average Patient Age: {avg_age:.1f} years
-            - Data Completeness: {completeness:.1f}%
-            
-            Most Common Diseases:
-            {df['Medical_Condition'].value_counts().head().to_string()}
-            
-            Age Distribution by Disease:
-            st.markdown("### Age Analysis")
-if age_stats is not None:
-    st.text(age_stats.to_string())
-else:
-    st.warning("Age statistics unavailable.")
+Healthcare Analytics Report
+Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}
 
+Summary Statistics:
+- Total Cases: {total_cases:,}
+- Unique Diseases: {unique_diseases}
+- Average Patient Age: {avg_age:.1f} years
+- Data Completeness: {completeness:.1f}%
+
+Most Common Diseases:
+{df['Medical_Condition'].value_counts().head().to_string()}
+
+Age Distribution by Disease:
+{age_stats.to_string()}
             """
             
             st.download_button(
@@ -2283,7 +2284,6 @@ def main():
     nav = st.session_state.get("selected_nav", "Dashboard")
     
     if nav == "Dashboard":
-        show_dashboard_banner()  # This line must be here
         dashboard_home()
     elif nav == "Medical Records":
         dashboard_records()
