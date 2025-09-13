@@ -1,7 +1,7 @@
 # 🏥 Saarva Health  
 **Digital Healthcare for Kerala's Migrant Workforce**  
 
-🔗 [Live Demo](https://saarva.streamlit.app/) | 💻 [GitHub Repository](https://github.com/Nitanshu715/Saarva-Health-for-All) | 📚 Documentation  
+🔗 [Live App](https://saarva.streamlit.app/) | 💻 [GitHub Repository](https://github.com/Nitanshu715/Saarva-Health-for-All) | 📚 Documentation  
 
 ---
 
