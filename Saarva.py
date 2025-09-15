@@ -1447,15 +1447,24 @@ def dashboard_home():
     
     # Welcome section
     st.markdown(
-        f"""
-        <div class="dashboard-card">
+    f"""
+    <div class="dashboard-card" style="position: relative; display: flex; align-items: center; gap: 20px;">
+        <div style="position: relative; display: inline-block; text-align: center;">
             {profile_pic_html}
+            <div style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.8); padding: 4px 8px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+                <h2 style='margin: 0; color: #8B4789; font-size: 1.2rem;'>Nitanshu Tak</h2>
+                <p style='margin: 0; color: #FF9933; font-size: 0.9rem;'>Official Account</p>
+            </div>
+        </div>
+        <div style="flex: 1;">
             <h1 style='color:#8B4789; margin-bottom: 10px;'>Welcome, {user}</h1>
             <p style='color:#FF9933; font-size: 1.1rem;'>Your personalized health dashboard</p>
         </div>
-        """,
-        unsafe_allow_html=True
-    )
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
     
     # Statistics
     col1, col2, col3, col4 = st.columns(4)
@@ -2296,3 +2305,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
