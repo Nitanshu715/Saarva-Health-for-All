@@ -2087,15 +2087,20 @@ def dashboard_profile():
             '''
         
         st.markdown(
-            f"""
-            <div class="profile-header">
-                {profile_img}
-                <h2 style='text-align: center; color: #8B4789; margin: 0;'>{user}</h2>
-                <p style='text-align: center; color: #FF9933; font-size: 1.1rem; margin: 10px 0 0 0;'>Official Account</p>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+    """
+    <div style="position: relative; width: 150px; margin: 0 auto;">
+        <img src="PATH_TO_PROFILE_PIC" class="profile-pic-large" />
+        <div style="position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%);
+                    background: rgba(255,255,255,0.9); padding: 4px 10px; border-radius: 8px;
+                    box-shadow: 0 2px 6px rgba(0,0,0,0.2); text-align: center;">
+            <h2 style="margin: 0; color: #8B4789; font-size: 1rem;">Nitanshu Tak</h2>
+            <p style="margin: 0; color: #FF9933; font-size: 0.8rem;">Official Account</p>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
     
     # Main Profile Content
     col1, col2 = st.columns([1, 1])
@@ -2298,4 +2303,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
