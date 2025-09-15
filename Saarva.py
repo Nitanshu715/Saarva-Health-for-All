@@ -2090,8 +2090,10 @@ def dashboard_profile():
             f"""
             <div class="profile-header">
                 {profile_img}
-                <h2 style='text-align: center; color: #8B4789; margin: 0;'>{user}</h2>
-                <p style='text-align: center; color: #FF9933; font-size: 1.1rem; margin: 10px 0 0 0;'>Official Account</p>
+                st.markdown(f"<h2 style='text-align: center; color: #8B4789; margin: 0;'>{st.session_state.current_user['name']}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<p style='text-align: center; color: #FF9933; font-size: 1.1rem; margin: 10px 0 0 0;'>Official Account</p>", unsafe_allow_html=True)
+                # <h2 style='text-align: center; color: #8B4789; margin: 0;'>{user}</h2>
+                # <p style='text-align: center; color: #FF9933; font-size: 1.1rem; margin: 10px 0 0 0;'>Official Account</p>
             </div>
             """,
             unsafe_allow_html=True
@@ -2299,6 +2301,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
