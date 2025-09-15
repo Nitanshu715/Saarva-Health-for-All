@@ -2094,6 +2094,7 @@ def dashboard_profile():
                 <p style='text-align: center; color: #FF9933; font-size: 1.1rem; margin: 10px 0 0 0;'>Official Account</p>
             </div>
             """,
+            unsafe_allow_html=True
         )
 
     
@@ -2298,6 +2299,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
