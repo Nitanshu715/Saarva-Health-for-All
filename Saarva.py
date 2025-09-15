@@ -2085,19 +2085,27 @@ def dashboard_profile():
                 {user[0].upper()}
             </div>
             '''
-        
         st.markdown(
-            f"""
-            <div class="profile-header">
-                {profile_img}
-                st.markdown(f"<h2 style='text-align: center; color: #8B4789; margin: 0;'>{st.session_state.current_user['name']}</h2>", unsafe_allow_html=True)
-                st.markdown(f"<p style='text-align: center; color: #FF9933; font-size: 1.1rem; margin: 10px 0 0 0;'>Official Account</p>", unsafe_allow_html=True)
-                # <h2 style='text-align: center; color: #8B4789; margin: 0;'>{user}</h2>
-                # <p style='text-align: center; color: #FF9933; font-size: 1.1rem; margin: 10px 0 0 0;'>Official Account</p>
-            </div>
-            """,
-            unsafe_allow_html=True
+                    f"""
+                    <div style='text-align: center; padding: 20px;'>
+                        <img src="data:image/jpeg;base64,{img_b64}" class="profile-pic" />
+                        <div style='margin-top: 10px; font-size: 1.1rem; color: #8B4789;'>{user}</div>
+                    </div>
+                    """, 
+                    unsafe_allow_html=True
         )
+
+        # st.markdown(
+        #     f"""
+        #     <div class="profile-header">
+        #         {profile_img}
+                
+        #         # <h2 style='text-align: center; color: #8B4789; margin: 0;'>{user}</h2>
+        #         # <p style='text-align: center; color: #FF9933; font-size: 1.1rem; margin: 10px 0 0 0;'>Official Account</p>
+        #     </div>
+        #     """,
+        #     unsafe_allow_html=True
+        # )
 
     
     # Main Profile Content
@@ -2301,6 +2309,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
