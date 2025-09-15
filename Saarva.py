@@ -2086,7 +2086,7 @@ def dashboard_profile():
             </div>
             '''
         
-         st.markdown(
+        st.markdown(
             f"""
             <div class="profile-header">
                 {profile_img}
@@ -2299,6 +2299,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
